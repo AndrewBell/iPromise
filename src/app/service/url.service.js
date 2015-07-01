@@ -27,6 +27,7 @@
                   vm.url = parseResponse(result);
                   resolve(vm.url);
                 } else {
+                  $log.debug("Rejecting due to invalid response");
                   reject('Invalid URL Response.');
                 }
               }, function (result) {

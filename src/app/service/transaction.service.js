@@ -27,17 +27,16 @@
             vm.token = token;
             $log.debug("Token has been set to: " + vm.token);
             return GatewayService.postRequest(vm.gatewayUrl, vm.token, transaction);
+          },function(result){
+            $log.debug("Preliminary requirements failed: " + result);
+            reject(result);
           })
-          .then(function (response) {
-            $log.debug("Returned response:" + JSON.stringify(response));
-            var result = response;
-            if (result === "Transaction success!") {
-              $log.debug("Transaction has a success body!");
-              resolve(result);
-            } else {
-              $log.debug("Transaction has a failure body!");
-              reject(response.data.response);
-            }
+          .then(function (response){
+            $log.debug("Successful gatewayservice response: " + JSON.stringify(response));
+            resolve(response);
+          },function(response){
+            $log.debug("Gateway request failed: " + response);
+            reject(response);
           });
 
       });

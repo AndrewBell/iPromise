@@ -28,8 +28,8 @@
           vm.status = 'success';
         }, function (response) {
           $log.debug("Post Transaction request failed: " + response);
+          vm.response = response;
           vm.status = 'failure';
-          vm.respnose = response;
         });
 
 

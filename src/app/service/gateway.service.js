@@ -12,7 +12,6 @@
 
     function postRequest(url, token) {
       $log.debug("GatewayService.postRequest called with " + token + " to url " + url);
-      //return $http.get('app/resource/transaction.json');
 
       return $q(function (resolve, reject) {
         $log.debug('GatewayService is making http request...');
@@ -24,6 +23,7 @@
                 vm.response = parseResponse(transactionResponse);
                 resolve(vm.response);
               } else {
+                $log.debug("Invalid Gateway Response - Rejecting");
                 reject('Invalid Gateway Response.');
               }
             }, function (result) {

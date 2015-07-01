@@ -3,9 +3,10 @@
   <div class="col-md-1">
     <button type="button" class="btn btn-lg btn-success" ng-click="main.runTransaction()">Sale</button>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-7">
     <alert type="info" ng-show="main.status=='submitted'" close="main.resetStatus()"> {{main.response}} </alert>
     <alert type="success" ng-show="main.status=='success'" close="main.resetStatus()"> {{main.response}} </alert>
+    <alert type="danger " ng-show="main.status=='failure'" close="main.resetStatus()"> {{main.response}} </alert>
   </div>
 
 </div>

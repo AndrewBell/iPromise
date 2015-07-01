@@ -28,6 +28,7 @@
                   vm.token = parseResponse(result);
                   resolve(vm.token);
                 } else {
+                  $log.debug('Response marked as invalid, rejecting');
                   reject('Invalid Token Response.');
                 }
               }, function (result) {
