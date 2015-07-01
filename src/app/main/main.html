@@ -1,0 +1,10 @@
+<div class="container">
+
+  <div class="col-md-1">
+    <button type="button" class="btn btn-lg btn-success" ng-click="main.runTransaction()">Sale</button>
+  </div>
+  <div class="col-md-2">
+    <alert type="success" ng-show="main.status=='success'" close="main.resetStatus()"> {{main.response}} </alert>
+  </div>
+
+</div>
