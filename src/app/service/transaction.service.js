@@ -16,31 +16,14 @@
 
     function postTransaction(transaction) {
       $log.debug("TransactionService.postTransaction() called with card: " + transaction.card);
-      return $q(function (resolve, reject) {
-        UrlService.getUrl()
-          .then(function (url) {
-            vm.gatewayUrl = url;
-            $log.debug("Gateway URL has been set to: " + vm.gatewayUrl);
-            return TokenService.getToken();
-          })
-          .then(function (token) {
-            vm.token = token;
-            $log.debug("Token has been set to: " + vm.token);
+        var independentPromises = [UrlService.getUrl(), TokenService.getToken()];
+        return $q.all(independentPromises)
+          .then(function(results){
+            $log.debug('Prerequisite requests success: ' + JSON.stringify(results));
+            vm.gatewayUrl = results[0];
+            vm.token = results[1];
             return GatewayService.postRequest(vm.gatewayUrl, vm.token, transaction);
-          },function(result){
-            $log.debug("Preliminary requirements failed: " + result);
-            reject(result);
-          })
-          .then(function (response){
-            $log.debug("Successful gatewayservice response: " + JSON.stringify(response));
-            resolve(response);
-          },function(response){
-            $log.debug("Gateway request failed: " + response);
-            reject(response);
           });
-
-      });
-
     }
   }
 })();
