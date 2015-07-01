@@ -7,12 +7,12 @@
 
   /** @ngInject */
   function TransactionService(UrlService, TokenService, GatewayService, $q, $log) {
-    var vm = this;
+    var that = this;
 
-    vm.postTransaction = postTransaction;
-    vm.gatewayUrl = '';
-    vm.token = '';
-    vm.response = '';
+    that.postTransaction = postTransaction;
+    that.gatewayUrl = '';
+    that.token = '';
+    that.response = '';
 
     function postTransaction(transaction) {
       $log.debug("TransactionService.postTransaction() called with card: " + transaction.card);
@@ -20,9 +20,9 @@
         return $q.all(independentPromises)
           .then(function(results){
             $log.debug('Prerequisite requests success: ' + JSON.stringify(results));
-            vm.gatewayUrl = results[0];
-            vm.token = results[1];
-            return GatewayService.postRequest(vm.gatewayUrl, vm.token, transaction);
+            that.gatewayUrl = results[0];
+            that.token = results[1];
+            return GatewayService.postRequest(that.gatewayUrl, that.token, transaction);
           });
     }
   }

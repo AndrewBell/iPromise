@@ -7,17 +7,17 @@
 
   /** @ngInject */
   function TokenService($http, $q, $log) {
-    var vm = this;
-    vm.token = '';
-    vm.getToken = getToken;
+    var that = this;
+    that.token = '';
+    that.getToken = getToken;
 
     function getToken() {
       $log.debug("TokenService.getToken called");
       return $q(function (resolve, reject) {
         //$log.debug("Current TokenService scope: " + JSON.stringify(this));
-        if (vm.token !== '') {
-          $log.debug('Returning cached token: ' + vm.token);
-          resolve(vm.token);
+        if (that.token !== '') {
+          $log.debug('Returning cached token: ' + that.token);
+          resolve(that.token);
         } else {
           $log.debug('No cached token, making http request...');
           setTimeout(function () { // Artificial delay
@@ -25,14 +25,14 @@
               .then(function (result) {
                 if (isValidResponse(result)) {
                   $log.debug("token get received valid response: " + JSON.stringify(result));
-                  vm.token = parseResponse(result);
-                  resolve(vm.token);
+                  that.token = parseResponse(result);
+                  resolve(that.token);
                 } else {
                   $log.debug('Response marked as invalid, rejecting');
                   reject('Invalid Token Response.');
                 }
-              }, function (result) {
-                $log.debug('Result:' + JSON.stringify(result));
+              }).catch(function (result) {
+                $log.debug('FAILED Token, Result:' + JSON.stringify(result));
                 reject('Token Request Failed.');
               });
           }, 1000);

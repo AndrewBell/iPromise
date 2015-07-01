@@ -7,8 +7,8 @@
 
   /** @ngInject */
   function GatewayService($http, $q, $log) {
-    var vm = this;
-    vm.postRequest = postRequest;
+    var that = this;
+    that.postRequest = postRequest;
 
     function postRequest(url, token, transaction) {
       $log.debug("GatewayService.postRequest " + transaction + "called with " + token + " to url " + url);
@@ -20,8 +20,8 @@
             .then(function (transactionResponse) {
               if (isValidResponse(transactionResponse)) {
                 $log.debug("transaction received valid response: " + JSON.stringify(transactionResponse));
-                vm.response = parseResponse(transactionResponse);
-                resolve(vm.response);
+                that.response = parseResponse(transactionResponse);
+                resolve(that.response);
               } else {
                 $log.debug("Invalid Gateway Response - Rejecting");
                 reject('Invalid Gateway Response.');
