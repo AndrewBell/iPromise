@@ -33,7 +33,7 @@
 
     function resetStatus() {
       vm.status = '';
-      vm.response = ''
+      vm.response = '';
     }
 
   }

@@ -35,7 +35,7 @@
             .then(function (response) {
               console.log("Returned response:" + JSON.stringify(response));
               var result = response.data.result;
-              if (result == "Transaction success!") {
+              if (result === "Transaction success!") {
                 console.log("Transaction has a success body!");
                 resolve(result);
               } else {
