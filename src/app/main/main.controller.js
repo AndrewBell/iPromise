@@ -32,7 +32,6 @@
           vm.status = 'failure';
         });
 
-
       vm.status = 'submitted';
     }
 
@@ -42,6 +41,5 @@
     }
 
   }
-
 
 })();

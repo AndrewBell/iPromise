@@ -10,13 +10,13 @@
     var vm = this;
     vm.postRequest = postRequest;
 
-    function postRequest(url, token) {
-      $log.debug("GatewayService.postRequest called with " + token + " to url " + url);
+    function postRequest(url, token, transaction) {
+      $log.debug("GatewayService.postRequest " + transaction + "called with " + token + " to url " + url);
 
       return $q(function (resolve, reject) {
         $log.debug('GatewayService is making http request...');
         setTimeout(function () { // Artificial delay
-          $http.get('app/resource/transaction.json')
+          $http.get('app/resource/transaction.json')// your url, header(token), and body(transaction) would be specified here.
             .then(function (transactionResponse) {
               if (isValidResponse(transactionResponse)) {
                 $log.debug("transaction received valid response: " + JSON.stringify(transactionResponse));
